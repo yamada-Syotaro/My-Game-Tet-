@@ -70,7 +70,7 @@ public class Mino : MonoBehaviour
         }
     }
 
-    // 今回の追加 ラインがあるか？確認
+    //ラインがあるか？確認
     public void CheckLines()
     {
         for (int i = height - 1; i >= 0; i--)
@@ -83,7 +83,7 @@ public class Mino : MonoBehaviour
         }
     }
 
-    // 今回の追加 列がそろっているか確認
+    //列がそろっているか確認
     bool HasLine(int i)
     {
         for (int j = 0; j < width; j++)
@@ -91,10 +91,12 @@ public class Mino : MonoBehaviour
             if (grid[j, i] == null)
                 return false;
         }
+        FindObjectOfType<GameManager>().AddScore();
+
         return true;
     }
 
-    // 今回の追加 ラインを消す
+    //ラインを消す
     void DeleteLine(int i)
     {
         for (int j = 0; j < width; j++)
@@ -105,7 +107,7 @@ public class Mino : MonoBehaviour
 
     }
 
-    // 今回の追加 列を下げる
+    //列を下げる
     public void RowDown(int i)
     {
         for (int y = i; y < height; y++)
