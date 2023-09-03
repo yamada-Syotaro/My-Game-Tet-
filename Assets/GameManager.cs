@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -9,18 +10,28 @@ public class GameManager : MonoBehaviour
 
     // スコア関連
     public Text scoreText;
-
     private int score;
+    public int currentScore;
+    public int clearScore = 1500;
+
+    // タイマー関連
+    public Text timerText;
+
+    public float gameTime = 60f;
+    int seconds;
 
     // Start is called before the first frame update
     void Start()
     {
+
         Initialize();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        TimeManagement();
 
     }
 
@@ -32,13 +43,51 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void TimeManagement()
+    {
+
+        gameTime -= Time.deltaTime;
+        seconds = (int)gameTime;
+        timerText.text = seconds.ToString();
+
+        if (seconds == 0)
+        {
+            Debug.Log("TimeOut");
+            GameOver();
+        }
+
+    }
+
     // スコアの追加
     public void AddScore()
     {
         score += 100;
-        scoreText.text = "Score: " + score.ToString();
+        currentScore += score;
+        scoreText.text = "Score: " + currentScore.ToString();
 
-        Debug.Log("Add 100");
+        Debug.Log(currentScore);
+
+        if (currentScore >= clearScore)
+        {
+            GameClear();
+            //Debug.Log(clearScore);
+        }
+
+    }
+
+    // GameOverしたときの処理
+    public void GameOver()
+    {
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    }
+
+    // GameClearした時の処理
+    public void GameClear()
+    {
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
     }
 
