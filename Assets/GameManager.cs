@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
     public float gameTime = 60f;
     int seconds;
 
+    // UIŠÖ˜A
+    public GameObject gamePauseUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -91,4 +94,24 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void GamePause()
+    {
+
+        GamePauseToggle();
+
+    }
+
+    public void GamePauseToggle()
+    {
+        gamePauseUI.SetActive(!gamePauseUI.activeSelf);
+
+        if (gamePauseUI.activeSelf)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
 }
