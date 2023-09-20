@@ -35,7 +35,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         TimeManagement();
-
+        
+        
     }
 
     // ゲーム開始前の状態に戻す
