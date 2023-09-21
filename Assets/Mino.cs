@@ -55,7 +55,6 @@ public class Mino : MonoBehaviour
             {
                 transform.position -= new Vector3(0, -1, 0);
                 AddToGrid();
-                // 今回の追加
                 CheckLines();
                 this.enabled = false;
                 FindObjectOfType<SpawnMino>().NewMino();
@@ -70,7 +69,6 @@ public class Mino : MonoBehaviour
         }
     }
 
-    //ラインがあるか？確認
     public void CheckLines()
     {
         for (int i = height - 1; i >= 0; i--)
@@ -79,24 +77,28 @@ public class Mino : MonoBehaviour
             {
                 DeleteLine(i);
                 RowDown(i);
+
+                //Debug.Log(i);
             }
         }
     }
 
-    //列がそろっているか確認
+    // 列がそろっているか確認
     bool HasLine(int i)
     {
         for (int j = 0; j < width; j++)
         {
             if (grid[j, i] == null)
                 return false;
+            //Debug.Log(j);
         }
+
         FindObjectOfType<GameManager>().AddScore();
 
         return true;
     }
 
-    //ラインを消す
+    // ラインを消す
     void DeleteLine(int i)
     {
         for (int j = 0; j < width; j++)
@@ -107,7 +109,7 @@ public class Mino : MonoBehaviour
 
     }
 
-    //列を下げる
+    // 列を下げる
     public void RowDown(int i)
     {
         for (int y = i; y < height; y++)
@@ -133,6 +135,13 @@ public class Mino : MonoBehaviour
             int roundY = Mathf.RoundToInt(children.transform.position.y);
 
             grid[roundX, roundY] = children;
+
+            // height-1 = 17のところまでブロックがきたらGameOver
+            if (roundY >= height - 3)
+            {
+                // GameOverメソッドを呼び出す
+                FindObjectOfType<GameManager>().GameOver();
+            }
         }
 
     }
@@ -155,8 +164,6 @@ public class Mino : MonoBehaviour
             {
                 return false;
             }
-
-
         }
         return true;
     }

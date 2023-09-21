@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-
-
     // スコア関連
     public Text scoreText;
     private int score;
@@ -16,27 +14,24 @@ public class GameManager : MonoBehaviour
 
     // タイマー関連
     public Text timerText;
-
     public float gameTime = 60f;
     int seconds;
 
     // UI関連
-    public GameObject gamePauseUI;
+    public GameObject GamePauseUI;
+    public GameObject GameOverUI;
+    public GameObject GameClearUI;
 
     // Start is called before the first frame update
     void Start()
     {
-
         Initialize();
-
     }
 
     // Update is called once per frame
     void Update()
     {
         TimeManagement();
-        
-        
     }
 
     // ゲーム開始前の状態に戻す
@@ -44,12 +39,10 @@ public class GameManager : MonoBehaviour
     {
         // スコアを0に戻す
         score = 0;
-
     }
 
     public void TimeManagement()
     {
-
         gameTime -= Time.deltaTime;
         seconds = (int)gameTime;
         timerText.text = seconds.ToString();
@@ -59,7 +52,6 @@ public class GameManager : MonoBehaviour
             Debug.Log("TimeOut");
             GameOver();
         }
-
     }
 
     // スコアの追加
@@ -76,37 +68,31 @@ public class GameManager : MonoBehaviour
             GameClear();
             //Debug.Log(clearScore);
         }
-
     }
 
     // GameOverしたときの処理
     public void GameOver()
     {
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
+        GameOverUI.active = true;
+        Time.timeScale = 0f;
     }
 
     // GameClearした時の処理
     public void GameClear()
     {
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
     }
 
     public void GamePause()
     {
-
         GamePauseToggle();
-
     }
 
     public void GamePauseToggle()
     {
-        gamePauseUI.SetActive(!gamePauseUI.activeSelf);
+        GamePauseUI.SetActive(!GamePauseUI.activeSelf);
 
-        if (gamePauseUI.activeSelf)
+        if (GamePauseUI.activeSelf)
         {
             Time.timeScale = 0f;
         }
