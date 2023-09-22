@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject Spawn;
+
     // スコア関連
     public Text scoreText;
     private int score;
@@ -75,12 +77,14 @@ public class GameManager : MonoBehaviour
     {
         GameOverUI.active = true;
         Time.timeScale = 0f;
+        Spawn.active = false;
     }
 
     // GameClearした時の処理
     public void GameClear()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameClearUI.active = true;
+        Time.timeScale = 0f;
     }
 
     public void GamePause()

@@ -136,11 +136,12 @@ public class Mino : MonoBehaviour
 
             grid[roundX, roundY] = children;
 
-            // height-1 = 17のところまでブロックがきたらGameOver
-            if (roundY >= height - 3)
+            // height-1 = 18のところまでブロックがきたらGameOver
+            if (roundY >= height - 2)
             {
                 // GameOverメソッドを呼び出す
                 FindObjectOfType<GameManager>().GameOver();
+                FindObjectOfType<SpawnMino>().GameOver();
             }
         }
 
