@@ -10,4 +10,9 @@ public class SceneLoder : MonoBehaviour
     {
         SceneManager.LoadScene("MainScene");
     }
+
+    public void TitleScene()
+    {
+        SceneManager.LoadScene("TitleScene");
+    }
 }
